@@ -4,7 +4,7 @@ import requests
 from io import BytesIO
 from tkinter import ttk
 
-Allowed_tags = ['sleep','jump','fight','black','white','play','siamese','cute']
+Allowed_tags = ['sleep','jump','fight','black','white','play','siamese','fat']
 
 def load_image(url):
     try:
@@ -22,8 +22,16 @@ def load_image(url):
 def open_new_window():
     tag = tag_combobox.get()
     url_tag = f'https://cataas.com/cat/{tag}' if tag else f'https://cataas.com/cat'
-    img = load_image(url_tag)
+    create_new_window(url_tag)
 
+
+def open_new_window_random_cat():
+    url_tag = f'https://cataas.com/cat'
+    create_new_window(url_tag)
+
+
+def create_new_window(url_tag):
+    img = load_image(url_tag)
     if img:
         new_window = Toplevel()
         new_window.title('Картинка с котиком')
@@ -31,7 +39,6 @@ def open_new_window():
         label = Label(new_window, image=img)
         label.pack()
         label.image = img
-
 
 def exit():
     window.destroy()
@@ -59,5 +66,8 @@ tag_combobox.pack()
 
 load_button = Button(text='Загрузить по тегу', command=open_new_window)
 load_button.pack()
+
+load_button2 = Button(text='Случайный котик', command=open_new_window_random_cat)
+load_button2.pack()
 
 window.mainloop()
